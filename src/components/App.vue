@@ -1,15 +1,28 @@
 <template>
-  <div>{{ msg }}</div>
+  <div>
+    <div v-for="(day, id) in days" :key="id">{{ day }}</div>
+  </div>
 </template>
 <script>
 export default {
   data() {
     return {
-      msg: 'Hello World'
-    }
+      month: 2,
+      year: 2017
+    };
   },
-  created() {
-    console.log(this.$moment);
+  computed: {
+    days() {
+      let days = [];
+      let currentDay = this.$moment(`${this.year}-${this.month}-1`, 'YYYY-M-D');
+      
+      do {
+        days.push(currentDay);
+        currentDay = this.$moment(currentDay).add(1, 'days');
+      } while((currentDay.month() + 1) === this.month);
+
+      return days;
+    }
   }
 }
 </script>
