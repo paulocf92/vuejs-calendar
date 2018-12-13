@@ -7,6 +7,9 @@ export default {
     return {
       msg: 'Hello World'
     }
+  },
+  created() {
+    console.log(this.$moment);
   }
 }
 </script>
