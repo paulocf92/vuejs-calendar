@@ -22,7 +22,7 @@ import CalendarDay from './CalendarDay.vue';
 export default {
   data() {
     return {
-      month: 2,
+      month: 12,
       year: 2018
     };
   },
