@@ -5,10 +5,12 @@ Vue.use(Vuex);
 import moment from 'moment-timezone';
 moment.tz.setDefault('UTC');
 
+import Axios from 'axios';
+
 export default new Vuex.Store({
   state: {
-    currentYear: 2018,
-    currentMonth: 12,
+    currentYear: 2019,
+    currentMonth: 1,
     eventFormPosX: 0,
     eventFormPosY: 0,
     eventFormActive: false,
@@ -37,10 +39,12 @@ export default new Vuex.Store({
       state.eventFormDate = payload;
     },
     addEvent(state, payload) {
-      state.events.push({
+      let obj = {
         description: payload,
         date: state.eventFormDate
-      });
+      };
+      state.events.push(obj);
+      Axios.post('/add_event', obj);
     }
   }
 });
