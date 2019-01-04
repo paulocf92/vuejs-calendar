@@ -14,8 +14,12 @@ app.get('/', (req, res) => {
 
 });
 
+let events = [];
+
+app.use(require('body-parser').json()); // Converts incoming req into json
 app.post('/add_event', (req, res) => {
-  console.log('Received');
+  events.push(req.body);
+  res.sendStatus(200);
 });
 
 const server = http.createServer(app);
