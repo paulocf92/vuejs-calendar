@@ -39,12 +39,25 @@ export default new Vuex.Store({
       state.eventFormDate = payload;
     },
     addEvent(state, payload) {
-      let obj = {
-        description: payload,
-        date: state.eventFormDate
-      };
-      state.events.push(obj);
-      Axios.post('/add_event', obj);
+      state.events.push(payload);
+    }
+  },
+  actions: {
+    addEvent(context, payload) {
+      return new Promise((resolve, reject) => {
+        let obj = {
+          description: payload,
+          date: context.state.eventFormDate
+        };
+        Axios.post('/add_event', obj).then(response => {
+          if (response.status === 200) {
+            context.commit('addEvent', obj);
+            resolve(); // Resolves returned promise
+          } else {
+            reject(); // Rejects returned promise
+          }
+        });
+      });
     }
   }
 });
