@@ -12,7 +12,7 @@ export default new Vuex.Store({
     eventFormPosX: 0,
     eventFormPosY: 0,
     eventFormActive: false,
-    eventFormDate: null,
+    eventFormDate: moment(),
     events: [
       { description: 'Christmas', date: moment('2018-12-25', 'YYYY-MM-DD') },
       { description: 'New Year', date: moment('2019-01-01', 'YYYY-MM-DD') },
