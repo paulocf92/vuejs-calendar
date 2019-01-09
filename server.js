@@ -9,8 +9,6 @@ const moment = require('moment-timezone');
 moment.tz.setDefault('UTC');
 const serialize = require('serialize-javascript');
 
-let renderer;
-
 app.use('/public', express.static(path.join(__dirname, 'public')));
 
 let events = [
@@ -18,6 +16,14 @@ let events = [
   { description: 'New Year', date: moment('2019-01-01', 'YYYY-MM-DD') },
   { description: 'City Aniversary', date: moment('2018-12-20', 'YYYY-MM-DD') }
 ];
+
+let renderer;
+
+if (process.env.NODE_ENV === 'production') {
+  let bundle = fs.readFileSync('./dist/node.bundle.js', 'utf8');
+  renderer = require('vue-server-renderer').createBundleRenderer(bundle);
+  app.use('/dist', express.static(path.join(__dirname, 'dist')));
+}
 
 app.get('/', (req, res) => {
   let template = fs.readFileSync(path.resolve('./index.html'), 'utf-8');
